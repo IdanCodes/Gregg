@@ -25,7 +25,9 @@ public abstract class ComSocket : Socket {
     
     public event ComSocketEvent? OnConnected;
     public event ComSocketEvent? OnReceivedConnection;
-    
+    public event ComSocketEvent? OnDisconnected;
+    public event ComSocketEvent? OnReceivedDisconnection;
+
     #endregion
     
     #region Constructors
