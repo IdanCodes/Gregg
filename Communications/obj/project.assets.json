@@ -1,11 +1,30 @@
 {
   "version": 3,
   "targets": {
-    "net7.0": {}
+    "net7.0": {
+      "Network/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "compile": {
+          "bin/placeholder/Network.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Network.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "Network/1.0.0": {
+      "type": "project",
+      "path": "../Network/Network.csproj",
+      "msbuildProject": "../Network/Network.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    "net7.0": []
+    "net7.0": [
+      "Network >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "/Users/idan/.nuget/packages/": {}
@@ -13,11 +32,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/idan/RiderProjects/Gregg/Network/Network.csproj",
-      "projectName": "Network",
-      "projectPath": "/Users/idan/RiderProjects/Gregg/Network/Network.csproj",
+      "projectUniqueName": "/Users/idan/RiderProjects/Gregg/Communications/Communications.csproj",
+      "projectName": "Communications",
+      "projectPath": "/Users/idan/RiderProjects/Gregg/Communications/Communications.csproj",
       "packagesPath": "/Users/idan/.nuget/packages/",
-      "outputPath": "/Users/idan/RiderProjects/Gregg/Network/obj/",
+      "outputPath": "/Users/idan/RiderProjects/Gregg/Communications/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/idan/.nuget/NuGet/NuGet.Config"
@@ -31,7 +50,11 @@
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "/Users/idan/RiderProjects/Gregg/Network/Network.csproj": {
+              "projectPath": "/Users/idan/RiderProjects/Gregg/Network/Network.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

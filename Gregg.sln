@@ -2,7 +2,9 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Network", "Network\Network.csproj", "{17285562-211E-49D8-AF8F-1BFEE99DD39D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Server\Server.csproj", "{AB36CAB4-FC91-43E8-B91F-601E4250E24A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Communications", "Communications\Communications.csproj", "{AB36CAB4-FC91-43E8-B91F-601E4250E24A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Debugger", "Debugger\Debugger.csproj", "{ECA672AC-E59A-43A0-8062-9C5858E18C69}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,5 +20,9 @@ Global
 		{AB36CAB4-FC91-43E8-B91F-601E4250E24A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AB36CAB4-FC91-43E8-B91F-601E4250E24A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AB36CAB4-FC91-43E8-B91F-601E4250E24A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ECA672AC-E59A-43A0-8062-9C5858E18C69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ECA672AC-E59A-43A0-8062-9C5858E18C69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ECA672AC-E59A-43A0-8062-9C5858E18C69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ECA672AC-E59A-43A0-8062-9C5858E18C69}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
