@@ -1,10 +1,23 @@
 namespace Communications.MessageLib; 
 
+// TODO: Message encryption
+// TODO: Message comparison
+// TODO: Communications between ComSockets
+// TODO: Client and server stuff
+
 /// <summary>
 /// Used to represent messages that can be sent between <see cref="ComSocket"/>s.
 /// </summary>
 public class Message {
     private List<MessageAttribute<Encryptable>> _attributes;
+    
+    #region Constructors
+
+    public Message(MessageAttribute<Encryptable>[]? attributes = null) {
+        _attributes = (attributes ?? Array.Empty<MessageAttribute<Encryptable>>()).ToList();
+    }
+    
+    #endregion
     
     #region Attribute Management
     
@@ -92,8 +105,4 @@ public class Message {
 
     #endregion
     
-    // TODO: Message encryption
-    // TODO: Message comparison
-    // TODO: Communications between ComSockets
-    // TODO: Client and server stuff
 }
