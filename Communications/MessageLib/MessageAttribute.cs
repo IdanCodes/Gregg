@@ -3,33 +3,32 @@ namespace Communications.MessageLib;
 /// <summary>
 /// A <see cref="MessageAttribute{T}"/> is used to represent a message attribute. 
 /// </summary>
-/// <typeparam name="T">The type for the <see cref="MessageAttribute{T}"/> to store.</typeparam>
-public readonly struct MessageAttribute {
+public readonly struct MessageAttribute<T> where T : Encryptable {
     #region Properties
     
     /// <summary>
-    /// The name of the <see cref="MessageAttribute"/>.
+    /// The name of the <see cref="MessageAttribute{T}"/>.
     /// </summary>
     public readonly string Name;
 
     /// <summary>
-    /// The value of the <see cref="MessageAttribute"/>.
+    /// The value of the <see cref="MessageAttribute{T}"/>.
     /// </summary>
-    public readonly object? Value = null;
+    public readonly T? Value = null;
     
     #endregion
     
     #region Constructors
     
     /// <summary>
-    /// Creates a new <see cref="MessageAttribute"/> with the given value.
+    /// Creates a new <see cref="MessageAttribute{T}"/> with the given value.
     /// </summary>
-    /// <param name="name">What to call the <see cref="MessageAttribute"/> when encrypting.</param>
-    /// <param name="value">The value to initialize the <see cref="MessageAttribute"/> with.</param>
+    /// <param name="name">What to call the <see cref="MessageAttribute{T}"/> when encrypting.</param>
+    /// <param name="value">The value to initialize the <see cref="MessageAttribute{T}"/> with.</param>
     /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> is null.</exception>
-    public MessageAttribute(string? name, Encryptable value) {
+    public MessageAttribute(string? name, T value) {
         Name = name ?? throw new ArgumentNullException(nameof(name));
-        Value = value;
+        Value = value ?? throw new ArgumentNullException(nameof(value));
     }
     
     #endregion
@@ -52,22 +51,22 @@ public readonly struct MessageAttribute {
      */
     
     /// <summary>
-    /// The start of an encrypted <see cref="MessageAttribute"/>.
+    /// The start of an encrypted <see cref="MessageAttribute{T}"/>.
     /// </summary>
     public const string EncryptStart = "{";
     /// <summary>
-    /// The end of an encrypted <see cref="MessageAttribute"/>.
+    /// The end of an encrypted <see cref="MessageAttribute{T}"/>.
     /// </summary>
     public const string EncryptEnd = "}";
     /// <summary>
-    /// The separator for the name and value of an encrypted <see cref="MessageAttribute"/>.
+    /// The separator for the name and value of an encrypted <see cref="MessageAttribute{T}"/>.
     /// </summary>
     public const string EncryptSeparator = ",";
 
     /// <summary>
-    /// Encrypts the <see cref="MessageAttribute"/> into a string.
+    /// Encrypts the <see cref="MessageAttribute{T}"/> into a string.
     /// </summary>
-    /// <returns>The encrypted <see cref="MessageAttribute"/></returns>
+    /// <returns>The encrypted <see cref="MessageAttribute{T}"/></returns>
     /// <exception cref="ArgumentNullException">Thrown when the <see cref="Value"/> is null</exception>
     public string Encrypt() {
         // Check for null values
@@ -82,18 +81,18 @@ public readonly struct MessageAttribute {
         result += Name + EncryptSeparator;
         
         // Add value
-        string value = Value.ToString() ?? throw new ArgumentNullException(nameof(Value));
+        string value = Value.Encrypt() ?? throw new ArgumentNullException(nameof(Value));
         result += value;
         
         return result + EncryptEnd;
     }
 
     /// <summary>
-    /// Decrypts the given string into a <see cref="MessageAttribute"/>.
+    /// Decrypts the given string into a <see cref="MessageAttribute{T}"/>.
     /// </summary>
     /// <param name="source">The source string to decrypt from</param>
-    /// <returns>The decrypted <paramref name="source"/> as a <see cref="MessageAttribute"/></returns>
-    public static MessageAttribute Decrypt(string source) {
+    /// <returns>The decrypted <paramref name="source"/> as a <see cref="MessageAttribute{T}"/></returns>
+    public static MessageAttribute<T> Decrypt(string source) {
         /*
          * source is gonna look like this:
          * {name,value}
@@ -113,11 +112,21 @@ public readonly struct MessageAttribute {
         
         // Get value
         string valueString = split[1];
-        var value = Activator.CreateInstance<Encryptable>();
+        var value = Activator.CreateInstance<T>();
         value.Decrypt(valueString);
         
-        return new MessageAttribute(name, value);
+        return new MessageAttribute<T>(name, value);
     }
     
+    #endregion
+    
+    #region Operators
+    
+    public static bool operator ==(MessageAttribute<T> left, MessageAttribute<T> right) =>
+            !left.Equals(null) && !right.Equals(null) && left.Name == right.Name && left.Value == right.Value;
+
+    public static bool operator !=(MessageAttribute<T> left, MessageAttribute<T> right) =>
+            !left.Equals(null) && !right.Equals(null) && left.Name != right.Name && left.Value != right.Value;
+
     #endregion
 }
